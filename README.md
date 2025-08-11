@@ -24,7 +24,7 @@
 - Configure your database connection string in `appsettings.json`
 - Run EF Core migrations to create/update the database
 
-- ## Future Improvements
+ ## Future Improvements
 
 - Add a Visit model to track pet appointments
 - Extend Pet model with additional details:
