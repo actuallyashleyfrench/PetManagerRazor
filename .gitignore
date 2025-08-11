@@ -1,0 +1,46 @@
+# Ignore build output folders
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider IDE files (if applicable)
+.idea/
+
+# Visual Studio Code settings
+.vscode/
+
+# NuGet packages folder
+packages/
+
+# ASP.NET Core publish output folder
+publish/
+
+# Logs
+*.log
+
+# DotCover files
+*.dotCover
+
+# Resharper files
+_ReSharper*/
+
+# NCrunch files
+_NCrunch_*
+
+# StyleCop files
+StyleCopReport.xml
+
+# Dotnet core secrets (if any)
+secrets.json
+
+# Entity Framework Core migrations
+Migrations/
+
+# OS generated files
+.DS_Store
+Thumbs.db
