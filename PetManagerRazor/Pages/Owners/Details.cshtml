@@ -1,0 +1,52 @@
+﻿@page "{id:int}"
+@model PetManagerRazor.Pages.Owners.DetailsModel
+@{
+    // Page to show Owner details
+    ViewData["Title"] = "Owner Details";
+}
+
+<h2>Owner Details</h2>
+
+@if (Model.Owner != null)
+{
+    <div class="card w-50 mb-3">
+        <div class="card-body">
+            <!-- Owner name & contact info -->
+            <h5 class="card-title mb-3">@Model.Owner.Name</h5>
+            <p class="card-text mb-2"><strong>Phone:</strong> @Model.Owner.PhoneNumber</p>
+            <p class="card-text mb-4"><strong>Email:</strong> @Model.Owner.Email</p>
+        
+
+        <h4 class="card-subtitle mb-2 text-muted">Pets</h4>
+
+        <!-- Owner's pets -->
+        @if (Model.Owner.Pets?.Any() == true)
+        {
+            <ul>
+                @foreach (var pet in Model.Owner.Pets)
+                {
+                    <li>
+                            @pet.Name (
+                            @(string.IsNullOrWhiteSpace(pet.Breed) ? pet.Species : pet.Breed),
+                            Age: @pet.Age @pet.AgeUnit )
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-muted">No pets found.</p>
+        }
+        </div>
+    </div>
+
+    <!-- Action buttons ( Edit / Back )-->
+    <div class="d-flex gap-2 mt-3">
+        <a asp-page="/Owners/Edit" asp-route-id="@Model.Owner.Id" class="btn btn-primary">Edit</a>
+        <button type="button" class="btn btn-secondary" onclick="history.back()">Back</button>
+    </div>
+}
+else
+{
+    <p>Owner not found.</p>
+}

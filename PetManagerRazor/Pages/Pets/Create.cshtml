@@ -1,0 +1,73 @@
+﻿@page
+@model PetManagerRazor.Pages.Pets.CreateModel
+@{
+    // Page to create new Pet record
+    ViewData["Title"] = "Add Pet";
+}
+
+<h2>Add Pet</h2>
+
+<!-- Form to create new Pet -->
+<form method="post">
+
+    <!-- Pet name input -->
+    <div class="mb-3">
+        <label asp-for="NewPet.Name" class="form-label"></label>
+        <input asp-for="NewPet.Name" class="form-control w-50" />
+        <span asp-validation-for="NewPet.Name" class="text-danger"></span>
+    </div>
+
+    <!-- Pet species select -->
+    <div class="mb-3">
+        <label asp-for="NewPet.Species" class="form-label"></label>
+        <select asp-for="NewPet.Species" class="form-select w-50" asp-items="Model.SpeciesList">
+            <option value="">-- Select Species --</option>
+        </select>
+        <span asp-validation-for="NewPet.Species" class="text-danger"></span>
+    </div>
+
+    <!-- Pet breed input (optional) -->
+    <div class="mb-3">
+        <label asp-for="NewPet.Breed" class="form-label"></label>
+        <input asp-for="NewPet.Breed" class="form-control w-50" />
+    </div>
+
+    <!-- Pet age input and unit select -->
+    <div class="form-group">
+        <label>Age</label>
+        <div class="d-flex gap-2">
+            <input asp-for="NewPet.Age" class="form-control" style="max-width: 100px;" />
+            <select asp-for="NewPet.AgeUnit" class="form-select" style="max-width: 120px;">
+                <option value="Weeks">Weeks</option>
+                <option value="Months">Months</option>
+                <option value="Years">Years</option>
+            </select>
+        </div>
+        <span asp-validation-for="NewPet.Age" class="text-danger"></span>
+        <span asp-validation-for="NewPet.AgeUnit" class="text-danger"></span>
+    </div>
+
+    <!-- Owner select -->
+    <div class="mb-3 d-flex align-items-end">
+        <div class="flex-grow-1">
+            <label asp-for="NewPet.OwnerId" class="form-label">Owner</label>
+            <select asp-for="NewPet.OwnerId" class="form-select w-50" asp-items="@(new SelectList(Model.Owners, "Id", "Name"))">
+                <option value="">-- Select Owner --</option>
+            </select>
+            <span asp-validation-for="NewPet.OwnerId" class="text-danger"></span>
+        </div>
+        <!-- Button to add new owner -->
+        <button type="submit" asp-page-handler="GoToAddOwner" class="btn btn-outline-secondary ms-3" formnovalidate>
+            + Add Owner
+        </button>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary">Add Pet</button>
+</form>
+
+@section Scripts {
+    <!-- Validation scripts -->
+    <partial name="_ValidationScriptsPartial" />
+}
+

@@ -1,0 +1,37 @@
+﻿@page "{id:int}"
+@model PetManagerRazor.Pages.Pets.DetailsModel
+@{
+    // Page for displaying Pet details
+    ViewData["Title"] = "Pet Details";
+}
+
+<h2>Pet Details</h2>
+
+@if (Model.Pet != null)
+{
+    <!-- Card for displaying pet details -->
+    <div class="card w-50">
+        <div class="card-body">
+            <h5 class="card-title mb-3">@Model.Pet.Name</h5>
+            <p class="card-text mb-2"><strong>Species:</strong> @Model.Pet.Species</p>
+            <p class="card-text mb-2"><strong>Breed:</strong> @(string.IsNullOrWhiteSpace(Model.Pet.Breed) ? "-" : Model.Pet.Breed)</p>
+            <p class="card-text mb-2"><strong>Age:</strong> @Model.Pet.Age @Model.Pet.AgeUnit</p>
+            <p class="card-text mb-0"><strong>Owner:</strong>
+                <!-- Link to Owner details -->
+                <a asp-page="/Owners/Details" asp-route-id="@Model.Pet.OwnerId">
+                    @Model.Pet.Owner?.Name
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Action buttons ( Edit / Back to list ) -->
+    <div class="d-flex gap-2 mt-3">
+        <a asp-page="/Pets/Edit" asp-route-id="@Model.Pet.Id" class="btn btn-primary">Edit</a>
+        <a asp-page="/Pets/Index" class="btn btn-secondary">Back to Pet List</a>
+    </div>
+}
+else
+{
+    <p>Pet not found.</p>
+}

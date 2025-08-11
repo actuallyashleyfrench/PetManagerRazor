@@ -1,0 +1,60 @@
+﻿@page "{id:int}"
+@model PetManagerRazor.Pages.Owners.EditModel
+@{
+    // Page to edit Owner info
+    ViewData["Title"] = "Edit Owner";
+}
+
+<h2>Edit Owner</h2>
+
+<!-- Form to edit Owner details -->
+<form method="post">
+    <input type="hidden" asp-for="Owner.Id" />
+
+    <div class="mb-3">
+        <label asp-for="Owner.Name" class="form-label"></label>
+        <input asp-for="Owner.Name" class="form-control w-50" />
+        <span asp-validation-for="Owner.Name" class="text-danger"></span>
+
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Owner.Email" class="form-label"></label>
+        <input asp-for="Owner.Email" class="form-control w-50" />
+        <span asp-validation-for="Owner.Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Owner.PhoneNumber" class="form-label"></label>
+        <input asp-for="Owner.PhoneNumber" class="form-control w-25" />
+        <span asp-validation-for="Owner.PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <!-- Save & Cancel buttons -->
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-page="/Owners/Details" asp-route-id="@Model.Owner?.Id" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+<!-- Delete Owner & related Pets -->
+<form method="post" asp-page-handler="Delete" onsubmit="return confirmDelete(@Model.Owner?.Pets.Count ?? 0)">
+    <div class="d-flex gap-2">
+        <input type="hidden" asp-for="Owner.Id" />
+        <button type="submit" class="btn btn-danger mt-3">Delete Owner</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        // Confirm deletion of Owner & related Pets
+        function confirmDelete(petCount) {
+            if (petCount > 0) {
+                return confirm(`This owner has ${petCount} pet(s). Do you want to delete them too?`);
+            }
+            return confirm("Are you sure you want to delete this owner?");
+        }
+    </script>
+
+    <partial name="_ValidationScriptsPartial" />
+}

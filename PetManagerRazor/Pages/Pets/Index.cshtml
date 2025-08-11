@@ -1,0 +1,50 @@
+﻿@page
+@model PetManagerRazor.Pages.Pets.IndexModel
+@{
+    // Page to display all Pets in table
+    ViewData["Title"] = "All Pets";
+}
+
+<h2>Pet List</h2>
+
+<!-- Search bar to filter Pets by name -->
+<form method="get" class="mb-4 mt-3">
+    <div class="input-group w-50">
+        <input type="text" name="SearchTerm" value="@Model.SearchTerm" class="form-control" placeholder="Search pet name..." />
+        <button type="submit" class="btn btn-outline-primary">Search</button>
+    </div>
+</form>
+
+@if (Model.Pets.Count == 0)
+{
+    <p>No pets found.</p>
+}
+else
+{
+    <!-- Table to display all Pets -->
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Breed</th>
+            <th>Age</th>
+            <th>Owner</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pet in Model.Pets)
+        {
+            <!-- Clickable rows to navigate to Pet details -->
+            <tr onclick="location.href='@Url.Page("/Pets/Details", new { id = pet.Id })'" style="cursor: pointer;">
+                <td>@pet.Name</td>
+                <td>@pet.Species</td>
+                <td> @(string.IsNullOrWhiteSpace(pet.Breed) ? "-" : pet.Breed)</td>
+                <td>@pet.Age @pet.AgeUnit</td>
+                <td>@pet.Owner?.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+

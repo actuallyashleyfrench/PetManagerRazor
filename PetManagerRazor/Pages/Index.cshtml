@@ -1,0 +1,19 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center mt-5">
+    <h2 class="fw-bold mb-2">Welcome to</h2>
+    <h1 class="display-4 fw-normal mb-2">Happy Tails</h1>
+    <h2 class="fw-bold">Vet Clinic</h2>
+
+
+    <p class="lead">Your trusted partner in pet care.</p>
+
+    <div class="mt-4">
+        <a asp-page="/Pets/Index" class="btn btn-primary btn-lg me-3">View All Pets</a>
+        <a asp-page="/Pets/Create" class="btn btn-success btn-lg">Add New Pet</a>
+    </div>
+</div>
